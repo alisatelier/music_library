@@ -85,13 +85,24 @@ const printPlaylist = function(playlistId) {
       console.log (`${trackId}: ${trackName} by ${trackArtist} (${trackAlbum})`)
     }
 }
-printPlaylist("p02")
+//printPlaylist("p02")
 
-// adds an existing track to an existing playlist
+// adds an existing track to an existing playlist  
+
+let modifyLibrary = JSON.parse(JSON.stringify(library));
+
 const addTrackToPlaylist = function(trackId, playlistId) {
+  let currentPlaylist = modifyLibrary.playlists[playlistId];
+  
+  if(!currentPlaylist.tracks.includes(trackId)){
+    currentPlaylist.tracks.push(trackId)
+    console.log("Tracks in New Library: " + modifyLibrary.playlists["p01"].tracks)
+  }
 
+  return modifyLibrary;
 }
-
+  
+//addTrackToPlaylist("t03", "p01")
 
 // generates a unique id
 // (already implemented: use this for addTrack and addPlaylist)
@@ -102,15 +113,30 @@ const generateUid = function() {
 
 // adds a track to the library
 const addTrack = function(name, artist, album) {
-
+  const newId = generateUid()
+  modifyLibrary.tracks[newId] = {
+    id: newId,
+    name: name,
+    artist: artist,
+    album: album,
+  }
+  return modifyLibrary
 }
+
+console.log(addTrack("Sleep", "One True God", "Unholy"))
 
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
-
+  const newId = generateUid();
+  modifyLibrary.playlists[newId]= {
+    id: newId,
+    name: name,
+    tracks: [],
+  }
+  return modifyLibrary
 }
-
+console.log(addPlaylist("Car Jam"))
 
 // STRETCH:
 // given a query string string, prints a list of tracks
