@@ -31,9 +31,17 @@ const library = {
 // p01: Coding Music - 2 tracks
 // p02: Other Playlist - 1 tracks
 const printPlaylists = function() {
+  
+  for (let playlistId in library.playlists){
+    let formatPlaylists = library.playlists[playlistId]
+      let  playlistName = formatPlaylists.name;
+      let tracksToPlay = formatPlaylists.tracks.length;
+      let printAllPlaylists = `${playlistId}: ${playlistName} - ${tracksToPlay} tracks`;
+      console.log(printAllPlaylists)
+    }
+  }
 
-}
-
+//printPlaylists()
 
 // prints a list of all tracks, using the following format:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
@@ -41,17 +49,43 @@ const printPlaylists = function() {
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 const printTracks = function() {
 
+  for (let trackListId in library.tracks){
+    let formatTrackList = library.tracks[trackListId]
+    let trackName = formatTrackList.name
+    let trackArtist = formatTrackList.artist;
+    let trackAlbum = formatTrackList.album
+
+    let printAllTracks = `${trackListId}: ${trackName} by ${trackArtist} (${trackAlbum})`
+    console.log(printAllTracks);
+  }
+
 }
 
+//printTracks()
 
 // prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
+  const currentPlaylist= library.playlists[playlistId]  
+  let playlistsId = currentPlaylist.id;
+  let playlistName = currentPlaylist.name;
+  let playlistLength = currentPlaylist.tracks.length;
 
+  console.log(`${playlistsId}: ${playlistName} - ${playlistLength} tracks`)
+
+  for (let trackData of currentPlaylist.tracks){
+      const tracks = library.tracks[trackData]
+      let trackId = tracks.id;
+      let trackName = tracks.name;
+      let trackArtist = tracks.artist;
+      let trackAlbum = tracks.album;
+
+      console.log (`${trackId}: ${trackName} by ${trackArtist} (${trackAlbum})`)
+    }
 }
-
+printPlaylist("p02")
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
